@@ -1,0 +1,13 @@
+﻿@model SentimentAnalysis.SentimentModule.PieData
+@{
+    var myChart = new Chart(600, 400)
+       .AddTitle("Ratio")
+       .AddSeries(chartType: "column",
+          xValue: new[] { "Positive", "Negative" },
+          yValues: new[] { Model.Positive, Model.Negative });
+
+    if (myChart != null)
+    {
+        myChart.Write();
+    }
+}

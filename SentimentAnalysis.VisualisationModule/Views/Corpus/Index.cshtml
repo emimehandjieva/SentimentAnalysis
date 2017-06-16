@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SentimentAnalysis.SentimentModule.NLPData>
+
+@{
+    ViewBag.Title = "Most popular Words";
+}
+
+<h2>Most popular Words</h2>
+
+<table class="table">
+ 
+    @foreach (var group in Model.GroupBy(m => m.Stem).OrderByDescending(g=>g.Count()))
+    {
+        <tr>
+            <th>
+                @Html.Encode(group.Key) 
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Word)
+            </th>
+            <th>
+                "Tf/Idf"
+            </th>
+        </tr>
+        foreach (var item in group)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Word)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TfIdf)
+                </td>
+            </tr>
+        }
+    }
+
+</table>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SentimentAnalysis.SentimentModule.ReviewData>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<h2>@Html.ActionLink("Analyze sentiment for all reviews", "AnalyzeAll")</h2>
+   
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.reviewerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.asin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reviewerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reviewText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.overall)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.summary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unixReviewTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reviewTime)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.reviewerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.asin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reviewerName)
+            </td>
+            <td>
+                <textarea id="scrollBarTextArea">
+                    @Html.DisplayFor(modelItem => item.reviewText)
+                </textarea>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.overall)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.unixReviewTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reviewTime)
+            </td>
+            <td>
+                @Html.ActionLink("Analyze sentiment for this review", "Analyze", new { asin = item.asin, reviewerID = item.reviewerID })
+            </td>
+        </tr>
+    }
+
+</table>

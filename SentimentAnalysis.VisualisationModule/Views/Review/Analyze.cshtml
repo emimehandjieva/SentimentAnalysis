@@ -1,0 +1,62 @@
+﻿@model SentimentAnalysis.SentimentModule.AnalysisData
+
+@{
+    ViewBag.Title = "Analyze";
+}
+
+<h2>Analyze</h2>
+
+<div>
+    <h4>AnalysisData</h4>
+    <hr />
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.Review.reviewerID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.Review.asin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.Review.reviewerName)
+        </td>
+        <td>
+            <textarea id="scrollBarTextArea">
+                @Html.DisplayFor(modelItem => modelItem.Review.reviewText)
+            </textarea>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.Review.overall)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.Review.summary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.Review.unixReviewTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.Review.reviewTime)
+        </td>
+        <td>
+            
+        </td>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.SentimentEvaluation)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SentimentEvaluation)
+            </dd>
+
+            <dt>
+               "Positive/Negative ratio"
+            </dt>
+
+            <dd>
+                <img src='@Url.Action("ChartView", "Review",new SentimentAnalysis.SentimentModule.PieData() {Positive = Model.PositiveWordsCount,Negative = Model.NegativeWordsCount })' alt="Chart" />
+            </dd>
+
+        </dl>
+</div>
+<p>
+</p>
