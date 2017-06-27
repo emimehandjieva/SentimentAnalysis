@@ -12,6 +12,8 @@ namespace SentimentAnalysis.SentimentModule
 {
     public static class DataHandler
     {
+        public static int number;
+
         private static List<ReviewData> _reviews;
         public static List<ReviewData> Reviews
         {
@@ -19,7 +21,15 @@ namespace SentimentAnalysis.SentimentModule
             {
                 if (_reviews == null)
                 {
-                    ImportReviewData(4);
+                    if (number == 0)
+                    {
+
+                        ImportReviewData(5);
+                    }
+                    else
+                    {
+                        ImportReviewData(number);
+                    }
                 }
 
                 return _reviews;
@@ -196,7 +206,7 @@ namespace SentimentAnalysis.SentimentModule
             }
         }
 
-        private static void ImportReviewData(int count)
+        public static void ImportReviewData(int count)
         {
             _reviews = new List<ReviewData>();
             string outputDirectory = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "bin");
@@ -209,6 +219,10 @@ namespace SentimentAnalysis.SentimentModule
                 while ((line = stream.ReadLine()) != null)
                 {
                     result = JsonConvert.DeserializeObject<ReviewData>(line);
+                    if(result == null)
+                    {
+                        var error = "wtf";
+                    }
                     _reviews.Add(result);
                 }
             }

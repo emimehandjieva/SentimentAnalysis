@@ -8,9 +8,9 @@ namespace SentimentAnalysis.SentimentModule
 {
     public static class SentimentAnalizator
     {
-        public static AnalysisData AnalyzeReview(ReviewData data)
+        public static SentimentAnalysisData AnalyzeReview(ReviewData data)
         {
-            AnalysisData result = new AnalysisData();
+            SentimentAnalysisData result = new SentimentAnalysisData();
             result.Review = data;
             var review = data.reviewText.ToLower().Split(' ');
             List<decimal> resultValues = new List<decimal>();
@@ -115,7 +115,7 @@ namespace SentimentAnalysis.SentimentModule
             var totalEvaluated = positiveCount + negativeCount;
             if(totalEvaluated>0)
             {
-                result.SentimentEvaluation = CalculateOveralSentiment(resultValues, positiveCount,negativeCount,review.Length);
+                result.SentimentEvaluation = (double)CalculateOveralSentiment(resultValues, positiveCount,negativeCount,review.Length);
 
             }
             else

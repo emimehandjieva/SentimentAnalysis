@@ -13,12 +13,14 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
         // GET: Review
         public ActionResult Index()
         {
-            var model = DataHandler.Reviews.OrderByDescending(r => r.reviewText.Length);
+            DataHandler.ImportReviewData(1);
+            var model = DataHandler.Reviews;
             return View(model);
         }
 
         public ActionResult Analyze(string asin,string reviewerID )
         {
+            DataHandler.ImportReviewData(1);
             var model = DataHandler.Reviews.Where(review => review.reviewerID == reviewerID && review.asin == asin).First();
             var analysisModel = SentimentAnalizator.AnalyzeReview(model);
             return View(analysisModel);
@@ -26,7 +28,8 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
 
         public ActionResult AnalyzeAll()
         {
-            var model = new List<AnalysisData>();
+            DataHandler.ImportReviewData(1);
+            var model = new List<SentimentAnalysisData>();
             foreach (ReviewData review in DataHandler.Reviews)
             {
                 model.Add(SentimentAnalizator.AnalyzeReview(review));

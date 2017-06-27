@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalysis.Sentiment
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalysis.VisualisationModule", "SentimentAnalysis.VisualisationModule\SentimentAnalysis.VisualisationModule.csproj", "{8968F31B-3B8C-49CC-8154-9CF390B29F9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalysis.DataOperations", "SentimentAnalysis.DataOperations\SentimentAnalysis.DataOperations.csproj", "{59B2E765-E797-4737-BB5F-BFF5D142D2A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8968F31B-3B8C-49CC-8154-9CF390B29F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8968F31B-3B8C-49CC-8154-9CF390B29F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8968F31B-3B8C-49CC-8154-9CF390B29F9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59B2E765-E797-4737-BB5F-BFF5D142D2A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B2E765-E797-4737-BB5F-BFF5D142D2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B2E765-E797-4737-BB5F-BFF5D142D2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59B2E765-E797-4737-BB5F-BFF5D142D2A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

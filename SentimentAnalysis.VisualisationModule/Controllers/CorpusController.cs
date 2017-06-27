@@ -19,23 +19,21 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
             return View(model);
         }
 
-        //public void ExportToExcell()
-        //{
-        //    var rawModel = DataHandler.Reviews;
+        public ActionResult AnalyzeDependency()
+        {
+            DataHandler.ImportReviewData(5);
 
+            StatisticalAnalysisData data = new StatisticalAnalysisData();
+            data.MonthToGradeDependency = FeatureDependencyAnalizator.AnalyzeMonthToGradeDependency();
+            data.MothToGradeTTest = FeatureDependencyAnalizator.CalculateCorrelationMonthToGrade();
+            data.YearToGradeDependency = FeatureDependencyAnalizator.AnalyzeYearToGradeDependency();
+            data.YearToGradeTTest = FeatureDependencyAnalizator.CalculateCorrelationYearToGrade();
+            data.YearToSentimentDependency = FeatureDependencyAnalizator.AnalyzeYearToSentimentDependency();
+            data.YearToSentimentTTest = FeatureDependencyAnalizator.CalculateCorrelationYearToSentiment();
+            data.UserToGradeCorrelation = FeatureDependencyAnalizator.CalculateCorrelationUserToGradeChiSquare();
 
-        //    ExcelUtlity obj = new ExcelUtlity();
-        //    DataTable dt = obj.ConvertToDataTable(rawModel);
-        //    var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Data.xlsx";
-        //    obj.WriteDataTableToExcel(dt, "Reviews",path , "Details");
-
-        //    System.Diagnostics.Process.Start(path);
-
-        //    ReviewController ctrl = new ReviewController();
-        //    ctrl.Index();
-
-        //}
-
-      
+            return View(data);
+        }
     }
+
 }
