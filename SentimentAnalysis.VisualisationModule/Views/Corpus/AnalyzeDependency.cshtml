@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "AnalyzeDependency";
 }
-
 <h2>Analyzing Dependency</h2>
 
 <div>
@@ -11,7 +10,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-           @* @Html.DisplayNameFor(model => model.MothToGradeTTest)*@
+            @* @Html.DisplayNameFor(model => model.MothToGradeTTest)*@
             @Html.Raw("Significance of correlation between month of review and user given review grade:")
 
         </dt>
@@ -31,247 +30,31 @@
         <dd>
             @Html.DisplayFor(model => model.YearToGradeTTest)
         </dd>
-        <dt>
+        @foreach (var pair in Model.GradeCorrelationResults)
+        {
 
-            @Html.Raw("Calculation of average user given grade based on regression results")
+            <dd>
+                @Html.Raw((pair.Key+2000).ToString()) - @Html.Raw(pair.Value.ToString())
 
-
-        </dt>
-
-        <dd>
-            @{
-                List<SelectListItem> listItems = new List<SelectListItem>();
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2001",
-                    Value = "1"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2002",
-                    Value = "2"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2003",
-                    Value = "3"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2004",
-                    Value = "4"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2005",
-                    Value = "5"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2006",
-                    Value = "6"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2007",
-                    Value = "7"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2008",
-                    Value = "8"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2009",
-                    Value = "9"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2010",
-                    Value = "10"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2011",
-                    Value = "11"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2012",
-                    Value = "12"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2013",
-                    Value = "13"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2014",
-                    Value = "14"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2015",
-                    Value = "15"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2016",
-                    Value = "16"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2017",
-                    Value = "17"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2018",
-                    Value = "18"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2019",
-                    Value = "19"
-                });
-                listItems.Add(new SelectListItem
-                {
-                    Text = "2020",
-                    Value = "20"
-                });
-            }
-
-            @Html.DropDownListFor(model => model.Year, listItems, "-- Select Year --")
-
-            @Html.DisplayFor(model=>model.YearToGradeCorrelationResult)
-        </dd>
+            </dd>
+        }
 
         <dt>
-           @* @Html.DisplayNameFor(model => model.YearToSentimentTTest)*@
+            @* @Html.DisplayNameFor(model => model.YearToSentimentTTest)*@
             @Html.Raw("Significance of correlation between year of review and sentiment analysis grade:")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.YearToSentimentTTest)
         </dd>
-        <dt>
+        @foreach (var pair in Model.SentimentCorrelationResults)
+        {
 
-            @Html.Raw("Calculation of average user given grade based on regression results")
+            <dd>
+                @Html.Raw((pair.Key +2000).ToString()) - @Html.Raw(pair.Value.ToString())
 
-
-        </dt>
-
-        <dd>
-            @{
-                List<SelectListItem> listItems2 = new List<SelectListItem>();
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2001",
-                    Value = "1"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2002",
-                    Value = "2"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2003",
-                    Value = "3"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2004",
-                    Value = "4"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2005",
-                    Value = "5"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2006",
-                    Value = "6"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2007",
-                    Value = "7"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2008",
-                    Value = "8"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2009",
-                    Value = "9"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2010",
-                    Value = "10"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2011",
-                    Value = "11"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2012",
-                    Value = "12"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2013",
-                    Value = "13"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2014",
-                    Value = "14"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2015",
-                    Value = "15"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2016",
-                    Value = "16"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2017",
-                    Value = "17"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2018",
-                    Value = "18"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2019",
-                    Value = "19"
-                });
-                listItems2.Add(new SelectListItem
-                {
-                    Text = "2020",
-                    Value = "20"
-                });
-            }
-
-            @Html.DropDownListFor(model => model.Year, listItems2, "-- Select Year --")
-
-            @Html.DisplayFor(model => model.YearToSentimentCorrelationResult)
-        </dd>
+            </dd>
+        }
         <dt>
             @* @Html.DisplayNameFor(model => model.YearToSentimentTTest)*@
             @Html.Raw("Existance of significance of correlation between user and given grade:")

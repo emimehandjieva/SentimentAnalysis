@@ -8,7 +8,6 @@ namespace SentimentAnalysis.VisualisationModule
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
         }
     }
 }

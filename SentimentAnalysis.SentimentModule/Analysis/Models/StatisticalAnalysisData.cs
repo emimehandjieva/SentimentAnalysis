@@ -122,29 +122,44 @@ namespace SentimentAnalysis.SentimentModule
                 return _userToGradeCorrelation.Significant? "Correlation is statistically significant" : "Correlation isn't statistically significant";
             }
         }
-
-        public string Year
-        {
-            get;
-            set;
-        }
-
-        public double YearToGradeCorrelationResult
+        
+        
+        Dictionary<int, double> _GradeCorrelationResults;
+        public Dictionary<int,double> GradeCorrelationResults
         {
             get
             {
-                int year = string.IsNullOrEmpty(this.Year) ? 0 : Int32.Parse(Year);
-                return this.YearToGradeDependency.Transform(year);
+                if(_GradeCorrelationResults == null)
+                {
+
+                    _GradeCorrelationResults = new Dictionary<int, double>();
+                    for (int i = 1; i <=20; i++)
+                    {
+                        _GradeCorrelationResults.Add(i, this.YearToGradeDependency.Transform(i));
+                    }
+                }
+                return _GradeCorrelationResults;
             }
         }
 
-        public double YearToSentimentCorrelationResult
+        Dictionary<int, double> _SentimentCorrelationResults;
+        public Dictionary<int, double> SentimentCorrelationResults
         {
             get
             {
-                int year = string.IsNullOrEmpty(this.Year) ? 0 : Int32.Parse(Year);
-                return this.YearToSentimentDependency.Transform(year);
+                if (_SentimentCorrelationResults == null)
+                {
+
+                    _SentimentCorrelationResults = new Dictionary<int, double>();
+                    for (int i = 1; i <= 20; i++)
+                    {
+                        _SentimentCorrelationResults.Add(i, this.YearToSentimentDependency.Transform(i ));
+                    }
+                }
+                return _SentimentCorrelationResults;
             }
         }
+
+        
     }
 }

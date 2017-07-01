@@ -1,7 +1,14 @@
-﻿using Accord.Statistics.Models.Regression.Linear;
+﻿using Accord.Controls;
+using Accord.MachineLearning.DecisionTrees;
+using Accord.MachineLearning.DecisionTrees.Learning;
+using Accord.Math;
+using Accord.Math.Optimization.Losses;
+using Accord.Statistics.Filters;
+using Accord.Statistics.Models.Regression.Linear;
 using Accord.Statistics.Testing;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -155,5 +162,78 @@ namespace SentimentAnalysis.SentimentModule
 
             return chi;
         }
+
+        public static void BuildDecisionTreeOnYearAndUser()
+        {
+            DataHandler.ImportReviewData(5);
+            DataHandler.Reviews.Shuffle();
+            DataTable data = new DataTable("Review Simple Input Data");
+            data.Columns.Add("Year");
+            data.Columns.Add("User");
+            data.Columns.Add("Review");
+            for (int i = 0; i < 1500; i++)
+            {
+                var currentReview = DataHandler.Reviews[i];
+                object[] values = new object[3];
+                values[0] = currentReview.reviewTime.Year;
+                values[1] = currentReview.reviewerID;
+                values[2] = currentReview.overall;
+
+                data.Rows.Add(values);
+            }
+
+            // Create a new codification codebook to 
+            // convert strings into integer symbols
+            var codebook = new Codification(data, "Year", "User", "Review");
+            DataTable symbols = codebook.Apply(data, "Year", "User", "Review");
+            int[][] inputs = symbols.ToJagged<int>("Year", "User");
+            int[] outputs = symbols.ToArray<int>("Review");
+
+            // Gather information about decision variables
+            DecisionVariable[] attributes =
+            {
+                new DecisionVariable("Year",     7), // 3 years 
+                new DecisionVariable("User", 18), // 18 possible users 
+            };
+
+            // Create a new instance of the ID3 algorithm
+            var id3learning = new ID3Learning(attributes);
+            // Learn the training instances!
+            DecisionTree tree = id3learning.Learn(inputs, outputs);
+
+            // Compute the training error when predicting training instances
+            double error = new ZeroOneLoss(outputs).Loss(tree.Decide(inputs));
+
+            // The tree can now be queried for new examples through 
+            // its decide method. For example, we can create a query
+
+            DataTable newData = new DataTable("Review Simple Input Data");
+            newData.Columns.Add("Year");
+            newData.Columns.Add("User");
+            newData.Columns.Add("Review");
+            for (int i = 1500; i < 2000; i++)
+            {
+                var currentReview = DataHandler.Reviews[i];
+                object[] values = new object[3];
+                values[0] = currentReview.reviewTime.Year;
+                values[1] = currentReview.reviewerID;
+                values[2] = currentReview.overall;
+
+                newData.Rows.Add(values);
+            }
+
+            DataTable newSymbols = codebook.Apply(data, "Year", "User", "Review");
+            int[][] newInputs = newSymbols.ToJagged<int>("Year", "User");
+            int[] newOutputs = newSymbols.ToArray<int>("Review");
+
+            int[] answers = tree.Decide(newInputs);
+            
+            ScatterplotBox.Show("Expected results", newOutputs.Select(i=>(double)i).ToArray());
+            ScatterplotBox.Show("Decision Tree results", newOutputs.Select(i => (double)i).ToArray())
+                .Hold();
+
+          
+        }
+        
     }
 }

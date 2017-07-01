@@ -1,5 +1,12 @@
-﻿using System;
+﻿using Accord.Controls;
+using Accord.MachineLearning.DecisionTrees;
+using Accord.MachineLearning.DecisionTrees.Learning;
+using Accord.Math;
+using Accord.Math.Optimization.Losses;
+using Accord.Statistics.Filters;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,11 +73,11 @@ namespace SentimentAnalysis.SentimentModule
                 //}
 
                 //enchancement
-                if (review[i] == "" )
+                if (review[i] == "")
                 {
                     continue;
                 }
-                    if (DataHandler.Intensifiers.Keys.Contains(review[i]))
+                if (DataHandler.Intensifiers.Keys.Contains(review[i]))
                 {
                     multiplier += DataHandler.Intensifiers[review[i]];
                     i++;
@@ -113,9 +120,9 @@ namespace SentimentAnalysis.SentimentModule
             result.PositiveWordsCount = positiveCount;
             result.NegativeWordsCount = negativeCount;
             var totalEvaluated = positiveCount + negativeCount;
-            if(totalEvaluated>0)
+            if (totalEvaluated > 0)
             {
-                result.SentimentEvaluation = (double)CalculateOveralSentiment(resultValues, positiveCount,negativeCount,review.Length);
+                result.SentimentEvaluation = (double)CalculateOveralSentiment(resultValues, positiveCount, negativeCount, review.Length);
 
             }
             else
@@ -127,34 +134,34 @@ namespace SentimentAnalysis.SentimentModule
 
         private static decimal CalculateOveralSentiment(List<decimal> resultValues, int Wp, int Wn, int length)
         {
-            
-            decimal Ap=0;
-            decimal An=0;
+
+            decimal Ap = 0;
+            decimal An = 0;
             if (Wp > 0)
             {
 
                 var positiveResults = resultValues.Where(x => x > 0);
-                 Ap = positiveResults.Sum(x => x) / Wp;
+                Ap = positiveResults.Sum(x => x) / Wp;
             }
             if (Wn > 0)
             {
                 var negativeResults = resultValues.Where(x => x < 0);
-                 An = negativeResults.Sum(x => x) / Wn;
+                An = negativeResults.Sum(x => x) / Wn;
             }
-            
+
             decimal value = 0;
             if (Ap > Math.Abs(An))
             {
-                value = 4+Ap;
+                value = 4 + Ap;
             }
             else if (Math.Abs(An) > Ap)
             {
-                value =2+ An;
+                value = 2 + An;
             }
-            
+
             return value;
         }
-        
+
         private static decimal ApplyNegativeCalculationOnWord(string word)
         {
             int wordSentiment = DataHandler.Lexicon[word];
@@ -173,5 +180,23 @@ namespace SentimentAnalysis.SentimentModule
 
             return 0;
         }
+
+
+        private static Random rng = new Random();
+
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+        
+       
     }
 }

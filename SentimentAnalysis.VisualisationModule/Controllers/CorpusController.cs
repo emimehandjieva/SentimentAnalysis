@@ -12,6 +12,7 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
 {
     public class CorpusController : Controller
     {
+        private StatisticalAnalysisData data;
         // GET: Corpus
         public ActionResult Index()
         {
@@ -23,7 +24,7 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
         {
             DataHandler.ImportReviewData(5);
 
-            StatisticalAnalysisData data = new StatisticalAnalysisData();
+            data = new StatisticalAnalysisData();
             data.MonthToGradeDependency = FeatureDependencyAnalizator.AnalyzeMonthToGradeDependency();
             data.MothToGradeTTest = FeatureDependencyAnalizator.CalculateCorrelationMonthToGrade();
             data.YearToGradeDependency = FeatureDependencyAnalizator.AnalyzeYearToGradeDependency();
@@ -34,6 +35,12 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
 
             return View(data);
         }
+
+        public void PredictGrade()
+        {
+             FeatureDependencyAnalizator.BuildDecisionTreeOnYearAndUser();
+        }
+        
     }
 
 }
