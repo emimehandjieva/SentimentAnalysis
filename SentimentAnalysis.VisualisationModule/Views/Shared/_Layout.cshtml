@@ -21,8 +21,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("All reviews", "Index", "Review")</li>
-                    <li>@Html.ActionLink("All review analysis", "AnalyzeAll", "Review")</li>
+                    <li>@Html.ActionLink("Lexicon Analysis", "AnalyzeAllLexiconally", "Review")</li>
+                    <li>@Html.ActionLink("Naive Bayes", "AnalyzeAllNaively", "Review")</li>
+                    <li>@Html.ActionLink("SVM", "AnalyzeAllSVMly", "Review")</li>
+                    <li>@Html.ActionLink("Max Entropy", "AnalyzeAllMaxEntropically", "Review")</li>
                     <li>@Html.ActionLink("Corpus Info", "Index", "Corpus")</li>
                     <li>@Html.ActionLink("Dependencies in data", "AnalyzeDependency", "Corpus")</li>
                     <li>@Html.ActionLink("Decision Tree", "PredictGrade", "Corpus")</li>

@@ -238,11 +238,10 @@ namespace SentimentAnalysis.SentimentModule
                 while ((line = stream.ReadLine()) != null)
                 {
                     result = JsonConvert.DeserializeObject<ReviewData>(line);
+
+                    //some basic cleanup
                     result.reviewText = result.reviewText.ToLower();
-                    if(result == null)
-                    {
-                        var error = "wtf";
-                    }
+
                     _reviews.Add(result);
                 }
             }

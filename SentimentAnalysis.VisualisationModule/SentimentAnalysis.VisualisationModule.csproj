@@ -255,7 +255,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Review\Index.cshtml" />
-    <Content Include="Views\Review\AnalyzeAllNaively.cshtml" />
+    <Content Include="Views\Review\AnalyzeAllML.cshtml" />
     <None Include="Views\Review\AnalyzeLexiconally.cshtml" />
     <Content Include="Views\Review\AnalyzeAllLexiconally.cshtml" />
     <Content Include="Views\Review\ChartView.cshtml" />

@@ -16,7 +16,7 @@ namespace SentimentAnalysis.VisualisationModule
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Review", action = "AnalyzeAllMaxEntropically", id = UrlParameter.Optional }
+                defaults: new { controller = "Review", action = "AnalyzeAllSVMly", id = UrlParameter.Optional }
             );
         }
     }

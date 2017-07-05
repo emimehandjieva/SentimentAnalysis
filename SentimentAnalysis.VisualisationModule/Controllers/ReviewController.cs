@@ -63,7 +63,8 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
             }
 
             Console.WriteLine(error);
-            return View(model);
+            ViewBag.Name = "Naive Bayes Classification";
+            return View("AnalyzeAllML", model);
         }
 
         public ActionResult AnalyzeAllSVMly()
@@ -83,7 +84,9 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
             }
 
             Console.WriteLine(error);
-            return View(model);
+            ViewBag.Name = "SVM Classification";
+
+            return View("AnalyzeAllML",model);
         }
 
         public ActionResult AnalyzeAllMaxEntropically()
@@ -103,7 +106,8 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
             }
 
             Console.WriteLine(error);
-            return View(model);
+            ViewBag.Name = "Maximum Entropy Classification";
+            return View("AnalyzeAllML", model);
         }
 
     }

@@ -13,7 +13,7 @@ namespace SentimentAnalysis.SentimentModule
         public static void Train()
         {
             classifier = new BayesClassifier("1", "2", "3", "4", "5");
-            DataHandler.ImportReviewData(1);
+            DataHandler.ImportReviewData(3);
             for (int i = 1; i <= 5; i++)
             {
                 var data = DataHandler.Reviews.Where(r => r.overall == i);
