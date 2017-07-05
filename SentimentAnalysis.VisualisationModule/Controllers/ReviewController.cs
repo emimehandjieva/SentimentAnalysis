@@ -18,28 +18,92 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
             return View(model);
         }
 
-        public ActionResult Analyze(string asin,string reviewerID )
+        public ActionResult AnalyzeLexiconally(string asin,string reviewerID )
         {
             DataHandler.ImportReviewData(1);
             var model = DataHandler.Reviews.Where(review => review.reviewerID == reviewerID && review.asin == asin).First();
-            var analysisModel = SentimentAnalizator.AnalyzeReview(model);
+            var analysisModel = LexiconSentimentAnalizator.AnalyzeReview(model);
             return View(analysisModel);
         }
 
-        public ActionResult AnalyzeAll()
+        public ActionResult AnalyzeAllLexiconally()
         {
             DataHandler.ImportReviewData(1);
             var model = new List<SentimentAnalysisData>();
+            double error = 0;
             foreach (ReviewData review in DataHandler.Reviews)
             {
-                model.Add(SentimentAnalizator.AnalyzeReview(review));
+                var currentSentiment = LexiconSentimentAnalizator.AnalyzeReview(review);
+               error += Math.Abs(review.overall - currentSentiment.SentimentEvaluation);
+                model.Add(currentSentiment);
             }
+            Console.WriteLine(error);
             return View(model.OrderBy(m=>m.Review.overall));
         }
 
         public ActionResult ChartView(PieData data)
         {
             return View(data);
+        }
+
+        public ActionResult AnalyzeAllNaively()
+        {
+            NaiveBayesSentimentAnalizator.Train();
+
+            var model = new List<SentimentAnalysisData>();
+            double error = 0;
+
+            DataHandler.ImportReviewData(1);
+
+            foreach (ReviewData review in DataHandler.Reviews)
+            {
+                var currentSentiment = NaiveBayesSentimentAnalizator.AnalyzeReview(review);
+                error += Math.Abs(review.overall - currentSentiment.SentimentEvaluation);
+                model.Add(currentSentiment);
+            }
+
+            Console.WriteLine(error);
+            return View(model);
+        }
+
+        public ActionResult AnalyzeAllSVMly()
+        {
+            SVMSentimentAnalyzator.Train();
+
+            var model = new List<SentimentAnalysisData>();
+            double error = 0;
+
+            DataHandler.ImportReviewData(1);
+
+            foreach (ReviewData review in DataHandler.Reviews)
+            {
+                var currentSentiment = SVMSentimentAnalyzator.AnalyzeReview(review);
+                error += Math.Abs(review.overall - currentSentiment.SentimentEvaluation);
+                model.Add(currentSentiment);
+            }
+
+            Console.WriteLine(error);
+            return View(model);
+        }
+
+        public ActionResult AnalyzeAllMaxEntropically()
+        {
+            MaxEntropySentimentAnalizator.Train();
+
+            var model = new List<SentimentAnalysisData>();
+            double error = 0;
+
+            DataHandler.ImportReviewData(1);
+
+            foreach (ReviewData review in DataHandler.Reviews)
+            {
+                var currentSentiment = MaxEntropySentimentAnalizator.AnalyzeReview(review);
+                error += Math.Abs(review.overall - currentSentiment.SentimentEvaluation);
+                model.Add(currentSentiment);
+            }
+
+            Console.WriteLine(error);
+            return View(model);
         }
 
     }

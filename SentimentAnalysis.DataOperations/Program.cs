@@ -17,7 +17,7 @@ namespace SentimentAnalysis.DataOperations
             Console.WriteLine("Write down what you want to do and press enter!");
             Console.WriteLine("Avaliable commands: ");
             Console.WriteLine("Excell n - exports set 1-5 to excell");
-            Console.WriteLine("order - orders reviews by user and gets the first 1000 ");
+            Console.WriteLine("order - orders reviews by user and gets the first 2000 ");
             var command = Console.ReadLine().Trim();
             if(command== "order")
             {

@@ -42,7 +42,7 @@ namespace SentimentAnalysis.SentimentModule
             analyzedReviews = new List<SentimentAnalysisData>();
             foreach (ReviewData item in DataHandler.Reviews)
             {
-                analyzedReviews.Add(SentimentAnalizator.AnalyzeReview(item));
+                analyzedReviews.Add(LexiconSentimentAnalizator.AnalyzeReview(item));
             }
         }
 

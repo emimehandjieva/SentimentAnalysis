@@ -118,6 +118,25 @@ namespace SentimentAnalysis.SentimentModule
 
         }
 
+        public static List<string> Vocabulary
+        {
+            get
+            {
+                if(_vocabulary == null)
+                {
+                    _vocabulary = Lexicon.Select(l => l.Key).ToList();
+                }
+                return _vocabulary;
+            }
+
+            set
+            {
+                _vocabulary = value;
+            }
+        }
+
+        private static List<string> _vocabulary;
+
         private static void ImportStopWords()
         {
             _stopWords = new List<string>();
@@ -219,6 +238,7 @@ namespace SentimentAnalysis.SentimentModule
                 while ((line = stream.ReadLine()) != null)
                 {
                     result = JsonConvert.DeserializeObject<ReviewData>(line);
+                    result.reviewText = result.reviewText.ToLower();
                     if(result == null)
                     {
                         var error = "wtf";
