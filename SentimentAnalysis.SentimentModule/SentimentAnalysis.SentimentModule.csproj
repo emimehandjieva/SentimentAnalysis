@@ -127,6 +127,7 @@
     <Compile Include="Analysis\CorpusAnalizator.cs" />
     <Compile Include="Analysis\Depencencies\FeatureDependencyAnalizator.cs" />
     <Compile Include="Analysis\Models\BigramData.cs" />
+    <Compile Include="Analysis\Models\MultipleSentimentAnalysisData.cs" />
     <Compile Include="Analysis\Models\NLPData.cs" />
     <Compile Include="Analysis\Models\StatisticalAnalysisData.cs" />
     <Compile Include="Analysis\LexiconSentimentAnalizator.cs" />

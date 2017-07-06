@@ -9,7 +9,7 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
 {
     public class ReviewController : Controller
     {
-       
+
         // GET: Review
         public ActionResult Index()
         {
@@ -18,7 +18,7 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
             return View(model);
         }
 
-        public ActionResult AnalyzeLexiconally(string asin,string reviewerID )
+        public ActionResult AnalyzeLexiconally(string asin, string reviewerID)
         {
             DataHandler.ImportReviewData(1);
             var model = DataHandler.Reviews.Where(review => review.reviewerID == reviewerID && review.asin == asin).First();
@@ -34,11 +34,11 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
             foreach (ReviewData review in DataHandler.Reviews)
             {
                 var currentSentiment = LexiconSentimentAnalizator.AnalyzeReview(review);
-               error += Math.Abs(review.overall - currentSentiment.SentimentEvaluation);
+                error += Math.Abs(review.overall - currentSentiment.SentimentEvaluation);
                 model.Add(currentSentiment);
             }
             Console.WriteLine(error);
-            return View(model.OrderBy(m=>m.Review.overall));
+            return View(model.OrderBy(m => m.Review.overall));
         }
 
         public ActionResult ChartView(PieData data)
@@ -86,7 +86,7 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
             Console.WriteLine(error);
             ViewBag.Name = "SVM Classification";
 
-            return View("AnalyzeAllML",model);
+            return View("AnalyzeAllML", model);
         }
 
         public ActionResult AnalyzeAllMaxEntropically()
@@ -108,6 +108,35 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
             Console.WriteLine(error);
             ViewBag.Name = "Maximum Entropy Classification";
             return View("AnalyzeAllML", model);
+        }
+
+
+        public ActionResult CompareResults()
+        {
+            NaiveBayesSentimentAnalizator.Train();
+            SVMSentimentAnalyzator.Train();
+            MaxEntropySentimentAnalizator.Train();
+
+            DataHandler.ImportReviewData(1);
+
+            var model = new List<MultipleSentimentAnalysisData>();
+            foreach (ReviewData review in DataHandler.Reviews)
+            {
+                MultipleSentimentAnalysisData resultItem = new MultipleSentimentAnalysisData() { ReviewText = review.reviewText, Grade = review.overall };
+                var currentSentiment = LexiconSentimentAnalizator.AnalyzeReview(review);
+                resultItem.LexiconSentimentEvaluation = currentSentiment.SentimentEvaluation;
+                currentSentiment = NaiveBayesSentimentAnalizator.AnalyzeReview(review);
+                resultItem.NaiveBayesSentimentEvaluation = currentSentiment.SentimentEvaluation;
+                currentSentiment = SVMSentimentAnalyzator.AnalyzeReview(review);
+                resultItem.SVMSentimentEvaluation = currentSentiment.SentimentEvaluation;
+                currentSentiment = MaxEntropySentimentAnalizator.AnalyzeReview(review);
+                resultItem.MaxEntSentimentEvaluation = currentSentiment.SentimentEvaluation;
+
+                model.Add(resultItem);
+            }
+
+            return View(model);
+
         }
 
     }
