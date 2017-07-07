@@ -115,7 +115,6 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
         {
             NaiveBayesSentimentAnalizator.Train();
             SVMSentimentAnalyzator.Train();
-            MaxEntropySentimentAnalizator.Train();
 
             DataHandler.ImportReviewData(1);
 

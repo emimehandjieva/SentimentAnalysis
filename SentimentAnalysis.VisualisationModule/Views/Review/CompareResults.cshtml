@@ -12,37 +12,37 @@
             @Html.DisplayNameFor(model => model.ReviewText)
         </th>
         <th>
-           // @Html.DisplayNameFor(model => model.Grade)
-            @Html.Raw("Original Grade");
+           @*@Html.DisplayNameFor(model => model.Grade)*@
+            @Html.Raw("Original Grade")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LexiconSentimentEvaluation)
-            @Html.Raw("Lexicon Method");
+            @*@Html.DisplayNameFor(model => model.LexiconSentimentEvaluation)*@
+            @Html.Raw("Lexicon Method")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NaiveBayesSentimentEvaluation)
-            @Html.Raw("Naive Bayes");
+            @*@Html.DisplayNameFor(model => model.NaiveBayesSentimentEvaluation)*@
+            @Html.Raw("Naive Bayes")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SVMSentimentEvaluation)
-            @Html.Raw("SVM");
+            @*@Html.DisplayNameFor(model => model.SVMSentimentEvaluation)*@
+            @Html.Raw("SVM")
         </th>
         <th></th>
     </tr>
     <tr>
-        <td>
-            @Html.Raw("Total Errors:");
+        <td style="font-weight:bolder">
+            @Html.Raw("Total Errors:")
         </td>
         <td>
            
         </td>
-        <td>
+        <td style="font-weight:bolder">
             @Html.Raw(Model.Sum(m=>m.Grade-m.LexiconSentimentEvaluation).ToString())
         </td>
-        <td>
+        <td style="font-weight:bolder" >
             @Html.Raw(Model.Sum(m => m.Grade - m.NaiveBayesSentimentEvaluation).ToString())
         </td>
-        <td>
+        <td style="font-weight:bolder">
             @Html.Raw(Model.Sum(m => m.Grade - m.SVMSentimentEvaluation).ToString())
         </td>
     </tr>
