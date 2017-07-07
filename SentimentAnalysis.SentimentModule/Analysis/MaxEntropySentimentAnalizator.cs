@@ -16,14 +16,14 @@ namespace SentimentAnalysis.SentimentModule
         {
             DataHandler.ImportReviewData(3);
 
-            var maxCount = 10;
+            var maxCount = 1;
             double[][] input = new double[maxCount][];
             for (int i = 0; i < maxCount; i++)
             {
                 input[i] = CalculateProbabilities(DataHandler.Reviews[i].reviewText);
             }
 
-            double[] output = DataHandler.Reviews.Take(10).Select(r => r.overall).ToArray();
+            double[] output = DataHandler.Reviews.Take(maxCount).Select(r => r.overall).ToArray();
 
             LogisticRegressionAnalysis regression = new LogisticRegressionAnalysis();
             LogisticRegression lr = regression.Learn(input, output);

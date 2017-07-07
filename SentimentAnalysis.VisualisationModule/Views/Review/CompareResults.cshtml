@@ -37,13 +37,13 @@
            
         </td>
         <td style="font-weight:bolder">
-            @Html.Raw(Model.Sum(m=>m.Grade-m.LexiconSentimentEvaluation).ToString())
+            @Html.Raw(Model.Sum(m=> Math.Abs(m.Grade-m.LexiconSentimentEvaluation)).ToString())
         </td>
         <td style="font-weight:bolder" >
-            @Html.Raw(Model.Sum(m => m.Grade - m.NaiveBayesSentimentEvaluation).ToString())
+            @Html.Raw(Model.Sum(m => Math.Abs(m.Grade - m.NaiveBayesSentimentEvaluation)).ToString())
         </td>
         <td style="font-weight:bolder">
-            @Html.Raw(Model.Sum(m => m.Grade - m.SVMSentimentEvaluation).ToString())
+            @Html.Raw(Model.Sum(m => Math.Abs(m.Grade - m.SVMSentimentEvaluation)).ToString())
         </td>
     </tr>
 @foreach (var item in Model) {
