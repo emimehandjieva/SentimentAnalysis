@@ -1,4 +1,5 @@
-﻿using Accord.Statistics.Models.Regression;
+﻿using Accord.Statistics.Analysis;
+using Accord.Statistics.Models.Regression;
 using Accord.Statistics.Models.Regression.Fitting;
 using System;
 using System.Collections.Generic;
@@ -10,24 +11,22 @@ namespace SentimentAnalysis.SentimentModule
 {
     public static class MaxEntropySentimentAnalizator
     {
-        private static LogisticRegression regression;
+        private static LogisticRegressionAnalysis regression;
         public static void Train()
         {
             DataHandler.ImportReviewData(3);
-            var learner = new IterativeReweightedLeastSquares<LogisticRegression>()
-            {
-                Tolerance = 1e-4,  // Let's set some convergence parameters
-                Iterations = 100,  // maximum number of iterations to perform
-                Regularization = 0
-            };
-            double[][] input = new double[DataHandler.Reviews.Count][];
-            for (int i = 0; i < DataHandler.Reviews.Count; i++)
+
+            var maxCount = 10;
+            double[][] input = new double[maxCount][];
+            for (int i = 0; i < maxCount; i++)
             {
                 input[i] = CalculateProbabilities(DataHandler.Reviews[i].reviewText);
             }
 
-            double[] output = DataHandler.Reviews.Select(r => r.overall).ToArray();
-            regression = learner.Learn(input, output);
+            double[] output = DataHandler.Reviews.Take(10).Select(r => r.overall).ToArray();
+
+            LogisticRegressionAnalysis regression = new LogisticRegressionAnalysis();
+            LogisticRegression lr = regression.Learn(input, output);
         }
 
         private static double[] CalculateProbabilities(string text)
@@ -43,7 +42,7 @@ namespace SentimentAnalysis.SentimentModule
         public static SentimentAnalysisData AnalyzeReview(ReviewData data)
         {
             SentimentAnalysisData result = new SentimentAnalysisData { Review = data };
-            result.SentimentEvaluation = regression.Probability(CalculateProbabilities(data.reviewText));
+            result.SentimentEvaluation = regression.Transform(CalculateProbabilities(data.reviewText));
             return result;
         }
     }
