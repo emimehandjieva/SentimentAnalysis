@@ -129,8 +129,6 @@ namespace SentimentAnalysis.VisualisationModule.Controllers
                 resultItem.NaiveBayesSentimentEvaluation = currentSentiment.SentimentEvaluation;
                 currentSentiment = SVMSentimentAnalyzator.AnalyzeReview(review);
                 resultItem.SVMSentimentEvaluation = currentSentiment.SentimentEvaluation;
-                currentSentiment = MaxEntropySentimentAnalizator.AnalyzeReview(review);
-                resultItem.MaxEntSentimentEvaluation = currentSentiment.SentimentEvaluation;
 
                 model.Add(resultItem);
             }

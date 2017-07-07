@@ -37,11 +37,6 @@ namespace SentimentAnalysis.SentimentModule
             get;
             set;
         }
-
-        public double MaxEntSentimentEvaluation
-        {
-            get;
-            set;
-        }
+        
     }
 }

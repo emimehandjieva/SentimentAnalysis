@@ -27,10 +27,6 @@
             @Html.DisplayNameFor(model => model.SVMSentimentEvaluation)
             @Html.Raw("SVM");
         </th>
-        <th>
-           // @Html.DisplayNameFor(model => model.MaxEntSentimentEvaluation)
-            @Html.Raw("Maximum Entropy");
-        </th>
         <th></th>
     </tr>
     <tr>
@@ -49,9 +45,6 @@
         <td>
             @Html.Raw(Model.Sum(m => m.Grade - m.SVMSentimentEvaluation).ToString())
         </td>
-        <td>
-            @Html.Raw(Model.Sum(m => m.Grade - m.MaxEntSentimentEvaluation).ToString())
-        </td>
     </tr>
 @foreach (var item in Model) {
     <tr>
@@ -69,9 +62,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SVMSentimentEvaluation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxEntSentimentEvaluation)
         </td>
     </tr>
 }
